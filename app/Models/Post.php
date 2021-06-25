@@ -4,11 +4,19 @@
 namespace App\Models;
 
 
+use Illuminate\Support\Facades\File;
+
 class Post
 {
+    public static function all()
+    {
+        $files = File::files(resource_path("posts/"));
+
+        return array_map(fn($file) => $file->GetContents(), $files);
+
+    }
     public static function find($slug)
     {
-        base_path();
         if(! file_exists($path = resource_path("posts/{$slug}.html"))){
        return redirect('/');
     }
