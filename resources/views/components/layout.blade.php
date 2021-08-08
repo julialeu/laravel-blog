@@ -6,6 +6,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+<style>
+    .clamp {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .clamp.one-line {
+        -webkit-line-clamp: 1;
+    }
+</style>
+
 
 <body style="font-family: Open Sans, sans-serif">
 <section class="px-6 py-8">
@@ -16,8 +27,20 @@
             </a>
         </div>
 
-        <div class="mt-8 md:mt-0">
-            <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+        <div class="mt-8 md:mt-0 flex items-center">
+
+            @auth
+            <span class="text-xs font-bold uppercase">Welcome, {{auth()->user()->name}}!</span>
+
+            <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
+                @csrf
+                <button type="submit">Log Out</button>
+            </form>
+            @else
+                <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>
+
+            @endauth
 
             <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                 Subscribe for Updates
@@ -54,4 +77,5 @@
         </div>
     </footer>
 </section>
+    <x-flash />
 </body>
