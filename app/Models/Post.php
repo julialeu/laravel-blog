@@ -19,7 +19,8 @@ class Post extends Model
             $query->where(fn($query) =>
                 $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('body', 'like', '%' . $search . '%')
-            ));
+            )
+        );
 
         $query->when($filters['category'] ?? false, fn($query, $category) =>
 
@@ -35,6 +36,11 @@ class Post extends Model
             )
         );
 
+    }
+
+    public function comments(){
+
+        return $this->hasMany(Comment::class);
     }
 
     public function category()
