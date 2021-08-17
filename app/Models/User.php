@@ -12,13 +12,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -52,5 +45,10 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function id()
+    {
+        return $this->getAttributeValue('id');
     }
 }
